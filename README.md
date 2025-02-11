@@ -3,8 +3,10 @@
 Written in the Apps Script extension of Google Sheets. This web app uses a lightweight Excel database to store student names, dates and attendance.
 Students are filtered by day which correspond to an Excel page. The user can view attendance records by day, and submit attendance for a custom date, or default current date.
 
-<img src="https://github.com/SapporoAlex/Roll-Call-Web-App/blob/main/rollcall.jpg" width="400px" height="auto">
-<img src="https://github.com/SapporoAlex/Roll-Call-Web-App/blob/main/records.jpg" width="400px" height="auto">
+<div display="flex" flex-direction="row" gap="10px" padding="15px" background-color="grey" border-radius="5px" border="3px solid black">
+  <img src="https://github.com/SapporoAlex/Roll-Call-Web-App/blob/main/rollcall.jpg" width="400px" height="auto">
+  <img src="https://github.com/SapporoAlex/Roll-Call-Web-App/blob/main/records.jpg" width="400px" height="auto">
+</div>
 
 ## Usage
 
