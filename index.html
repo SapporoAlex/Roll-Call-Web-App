@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mr McKinley Roll Call</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <?!= include("html-css"); ?>
+</head>
+  <body>
+    <div id="menu">
+      <button onclick="viewRecords(day)">Records</button>
+      <button onclick="selectDay('Tuesday')">Tue</button>
+      <button onclick="selectDay('Wednesday')">Wed</button>
+      <button onclick="selectDay('Thursday')">Thu</button>
+      <button onclick="selectDay('Friday')">Fri</button>
+    </div>
+    <h1>Mr McKinley Roll Call</h1>
+    <h2 id="day">Tuesday</h2>
+    <div class="table-container">
+      <table>
+        <div id="rollCallForm"></div>
+      </table>
+    </div>
+    
+
+
+    <div id="submit-section">
+      <button id="submit-button" onclick="submitRollCall()">Submit</button>
+      <input type="text" placeholder="MMDD" id="custom-date">
+    </div>
+    <?!= include("html-js"); ?>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<script>
+    let day = "Tuesday";
+    let studentList = [];
+    var submitSection = document.getElementById("submit-section");
+    var submitInput = document.getElementById("custom-date");
+    var submitButton = document.getElementById("submit-button");
+
+    function selectDay(selectedDay) {
+      day = selectedDay;
+      document.getElementById("day").innerText = day;
+      loadRollCallData(day);
+      submitSection.classList.add("visible");
+      submitInput.classList.add("visible");
+      submitButton.classList.add("visible");
+      submitSection.classList.remove("hidden");
+      submitInput.classList.remove("hidden");
+      submitButton.classList.remove("hidden");
+    }
+
+    function viewRecords() {
+      google.script.run.withSuccessHandler(data => {
+        let tableHTML = "<h2>Attendance Records</h2><table border='1'>";
+        
+        data.forEach((row, index) => {
+          tableHTML += "<tr>";
+          row.forEach(cell => {
+            tableHTML += `<td>${cell}</td>`;
+          });
+          tableHTML += "</tr>";
+        });
+
+        tableHTML += "</table>";
+        document.getElementById("rollCallForm").innerHTML = tableHTML;
+      }).viewRecords(day);
+      submitSection.classList.add("hidden");
+      submitInput.classList.add("hidden");
+      submitButton.classList.add("hidden");
+      submitSection.classList.remove("visible");
+      submitInput.classList.remove("visible");
+      submitButton.classList.remove("visible");
+    }
+
+    function loadRollCallData(day) {
+      google.script.run.withSuccessHandler(data => {
+        studentList = data.slice(1).map(row => row[0]); // Extract names
+        let tableHTML = "<table><tr><th>Name</th><th>Present</th><th>Absent</th></tr>";
+
+        studentList.forEach(name => {
+          tableHTML += `<tr>
+            <td>${name}</td>
+            <td><input type="radio" name="${name}" value="present" checked></td>
+            <td><input type="radio" name="${name}" value="absent"></td>
+          </tr>`;
+        });
+
+        tableHTML += "</table>";
+        document.getElementById("rollCallForm").innerHTML = tableHTML;
+      }).getRollCallData(day);
+    }
+
+    
+    function submitRollCall() {
+      let statusMap = {};
+      let date = document.getElementById("custom-date").value;
+      studentList.forEach(name => {
+        let status = document.querySelector(`input[name="${name}"]:checked`).value;
+        statusMap[name] = status === "present";
+      });
+
+      google.script.run.withSuccessHandler(response => {
+        alert(response);
+        loadRollCallData();
+      }).submitRollCall(statusMap, day, date);
+      document.getElementById("custom-date").value = "";
+    }
+
+      window.onload = function() {
+        loadRollCallData(day);
+      };
+  </script>und-color: #ffffff;
